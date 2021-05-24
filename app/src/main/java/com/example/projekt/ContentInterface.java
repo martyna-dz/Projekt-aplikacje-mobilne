@@ -2,7 +2,7 @@ package com.example.projekt;
 
 import java.util.ArrayList;
 
-public interface contentInterface {
+public interface ContentInterface {
 
     ArrayList<String> getCategoriesList();
     ArrayList<String> getPolishWordsList();

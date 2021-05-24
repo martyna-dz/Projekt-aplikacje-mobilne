@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
 
-    contentInterface content = new Content();
+    ContentInterface content = new Content();
     ArrayList<String> categories = content.getCategoriesList();
     ArrayList<String> polish = content.getPolishWordsList();
     ArrayList<String> english = content.getEnglishWordsList();
@@ -74,6 +74,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         return words;
+    }
+
+    public int getCategoryId(SQLiteDatabase db, String name) {
+        String query = "Select id from categories where name = \"" + name + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
     }
 
 }

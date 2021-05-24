@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class CategoryCreator extends Activity {
+public class CategoryCreatorActivity extends Activity {
 
     EditText editText;
     TextView textView;
@@ -25,7 +25,7 @@ public class CategoryCreator extends Activity {
     String polishWord;
     String foreignWord;
     boolean isCreated = false;
-    int categoryId = -1;
+    int categoryId = 6;
     boolean polish = true;
 
     @Override
@@ -47,8 +47,8 @@ public class CategoryCreator extends Activity {
     public void processInput(View view) {
         if (isCreated == false) {
             String categoryName = String.valueOf(editText.getText());
-            sqLiteHelper.insertCategory(sq,categoryName);
-            categoryId = 7;
+            sqLiteHelper.insertCategory(sq, categoryName);
+            categoryId = sqLiteHelper.getCategoryId(sq, categoryName);
             isCreated = true;
             polish = true;
             textView.setText("Podaj polskie słówko");
@@ -68,5 +68,7 @@ public class CategoryCreator extends Activity {
             }
         }
     }
+
+
 
 }
