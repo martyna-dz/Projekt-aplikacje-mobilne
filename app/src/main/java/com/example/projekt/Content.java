@@ -2,7 +2,7 @@ package com.example.projekt;
 
 import java.util.ArrayList;
 
-public class Content implements contentInterface {
+public class Content implements ContentInterface {
 
     @Override
     public ArrayList<String> getCategoriesList() {
