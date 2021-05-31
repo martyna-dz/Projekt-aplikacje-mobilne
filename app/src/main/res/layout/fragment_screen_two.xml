@@ -8,7 +8,6 @@
     tools:context=".FragmentScreenOneInfo"
     android:background="#ffd7b5">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <TextView
         android:id="@+id/textView5"
