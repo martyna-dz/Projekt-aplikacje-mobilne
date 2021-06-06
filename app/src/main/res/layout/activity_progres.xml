@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonPowrot"
         android:layout_width="104dp"
         android:layout_height="50dp"
@@ -29,7 +29,7 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:onClick="back"
         android:text="Powrót"
-        android:textColor="@color/colorAccent"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,18 +108,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button3"
         android:layout_width="108dp"
         android:layout_height="50dp"
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
         android:layout_marginBottom="40dp"
-        android:background="@color/colorPrimary"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:background="@color/colorAccent"
+        android:backgroundTint="@color/colorAccent"
         android:onClick="toReset"
         android:text="Reset"
-        android:textColor="@color/colorAccent"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

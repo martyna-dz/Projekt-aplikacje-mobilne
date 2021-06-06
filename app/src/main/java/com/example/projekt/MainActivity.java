@@ -3,6 +3,7 @@ package com.example.projekt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     SQLiteHelper sqLiteHelper;
     String currentLanguage;
     int[] buttonArray = new int[6];
+    SQLiteDatabase sq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_1);
         buttonArray = createButtonArray();
         sqLiteHelper = new SQLiteHelper(this);
+        sq = sqLiteHelper.getWritableDatabase();
         spinner = (Spinner) findViewById(R.id.spinner);
         languages = this.getResources().getStringArray(R.array.spinnerChoices);
         images = new int[]{R.drawable.british_flag, R.drawable.spanish_flag, R.drawable.german_flag};
@@ -57,6 +60,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 startActivity(intent);
+            }
+        });
+
+        final Intent intentPlus = new Intent(this, AddActivity.class);
+
+        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.floatingActionButtonPlus);
+        addButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(intentPlus);
             }
         });
 

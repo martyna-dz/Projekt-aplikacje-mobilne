@@ -2,6 +2,7 @@ package com.example.projekt;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -13,7 +14,6 @@ import java.util.Collections;
 
 public class FlashcardsActivity extends AppCompatActivity {
 
-
     TextView text;
 
     Switch switchDone;
@@ -22,10 +22,11 @@ public class FlashcardsActivity extends AppCompatActivity {
     int[]params;
     Word language;
     int index;
+    SQLiteDatabase sq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //id, shuffle, Word
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flashcards);
         switchDone = findViewById(R.id.switchDone);
@@ -33,13 +34,29 @@ public class FlashcardsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         params = bundle.getIntArray("przycisk");
         sqLiteHelper = new SQLiteHelper(this);
-        SQLiteDatabase sq = sqLiteHelper.getWritableDatabase();
+        sq = sqLiteHelper.getWritableDatabase();
         words = sqLiteHelper.getWords(sq, setLanguage(), params[0] + 1);
         Collections.shuffle(words);
+        myShuffle();
 
         index = 0;
         text.setText(words.get(index).polishWord);
         language = words.get(index);
+        if (words.get(index).progress.equals("1")) {
+            switchDone.setChecked(true);
+        }
+    }
+
+    public void myShuffle() {
+        ArrayList<Word> newWords = new ArrayList<>();
+        for (int i = 0; i < words.size(); i++) {
+            if (words.get(i).progress.equals("0")) {
+                newWords.add(0, words.get(i));
+            } else {
+                newWords.add(words.get(i));
+            }
+        }
+        words = newWords;
     }
 
     public String setLanguage() {
@@ -68,16 +85,27 @@ public class FlashcardsActivity extends AppCompatActivity {
 
 
     public void next(View view) {
-        index++;
-        if (index == 12) {
-            //slowka ktore nie sa zapamietane
+
+        index++; //krok 2
+
+        if (switchDone.isChecked()) {
+            sqLiteHelper.changeProgress(sq, setLanguage(), words.get(index-1).id);
+            switchDone.setChecked(false);
+        } else {
+            sqLiteHelper.changeProgressZero(sq, setLanguage(), words.get(index-1).id);
+        }
+
+        if (index == sqLiteHelper.getNumberOfWords(sq, words.get(0).category, setLanguage())) {
+            this.finish();
+            onBackPressed();
         } else {
             language = words.get(index);
             text.setText(language.polishWord);
+            if (words.get(index).progress.equals("1")) {
+                switchDone.setChecked(true);
+            }
         }
-        if (switchDone.isChecked()) {
-            //zapis do bazy danych progresu
-        }
+
     }
 
 }
